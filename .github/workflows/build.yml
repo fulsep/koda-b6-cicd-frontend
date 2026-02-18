@@ -50,5 +50,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          scripts: |
+          script: |
             docker pull ghcr.io/fulsep/koda-b6-cicd-frontend:latest
