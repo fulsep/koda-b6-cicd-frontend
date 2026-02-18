@@ -52,3 +52,5 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             docker pull ghcr.io/fulsep/koda-b6-cicd-frontend:latest
+            docker rm -f koda-b6-cicd
+            docker run -d -p 20000:80 --name koda-b6-cicd ghcr.io/fulsep/koda-b6-cicd-frontend:latest
