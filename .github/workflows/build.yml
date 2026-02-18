@@ -1,8 +1,8 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Server CI/CD
+run-name: Build and run latest image on server
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Build-and-Run:
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -43,3 +43,12 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: "[SERVER] pull image from ghcr.io"
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          scripts: |
+            docker pull ghcr.io/fulsep/koda-b6-cicd-frontend:latest
