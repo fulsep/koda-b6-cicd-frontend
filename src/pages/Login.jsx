@@ -1,7 +1,10 @@
 import React from 'react'
 import http from '../lib/http'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
+
+  const navigate = useNavigate()
 
   const processLogin = async (e)=>{
     e.preventDefault()
@@ -12,6 +15,9 @@ function Login() {
     })
     const data = await req.json()
     window.alert(data.message);
+    if(data.success){
+      navigate("/")
+    }
   }
 
   return (
