@@ -1,7 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import http from '../lib/http'
 
 function Home() {
+
+  const [users, setUsers] = React.useState([])
+
+
+  const getDataUsers = async() => {
+    const req = await http("/users")
+    const data = await req.json()
+    setUsers(data)
+    
+  }
+  React.useEffect(()=>{
+    getDataUsers()
+  },[])
+
   return (
     <div className='flex flex-col min-h-screen h-full'>
       <div className='h-24 bg-black text-white flex justify-between items-center px-10'>
@@ -20,7 +35,15 @@ function Home() {
       </div>
       <div className='flex-1 flex flex-col justify-center items-center'>
         <h1 className='font-bold text-3xl'>Welcome to Kodacademy!</h1>
-        <h1 className='font-bold text-2xl'>Changes from CI/CD!</h1>
+        <div className='font-bold text-2xl flex flex-col'>
+          {users.map(person => {
+            return (
+              <div key={person.id}>
+                <div>{person.email}</div>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )
