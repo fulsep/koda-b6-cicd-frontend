@@ -7,7 +7,7 @@ function Login() {
     e.preventDefault()
     const {value: email} = e.target.email
     const {value: password} = e.target.password
-    const req = await http("/auth/login", {email,password}, {
+    const req = await http("/auth/login", JSON.stringify({email,password}), {
       method: "POST"
     })
     const data = await req.json()
